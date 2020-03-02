@@ -113,7 +113,7 @@ public class HexCell : MonoBehaviour
 		}
         //水不能往高流
         HexCell neighbor = GetNeighbor(direction);
-		if (!neighbor || elevation < neighbor.elevation) 
+		if (!IsValidRiverDestination(neighbor)) 
         {
 			return;
 		}
@@ -131,6 +131,31 @@ public class HexCell : MonoBehaviour
 		neighbor.incomingRiver = direction.Opposite();
 		
         SetRoad((int)direction, false);
+	}
+
+    void ValidateRivers () 
+    {
+		if (
+			hasOutgoingRiver &&
+			!IsValidRiverDestination(GetNeighbor(outgoingRiver))
+		) 
+        {
+			RemoveOutgoingRiver();
+		}
+		if (
+			hasIncomingRiver &&
+			!GetNeighbor(incomingRiver).IsValidRiverDestination(this)
+		) 
+        {
+			RemoveIncomingRiver();
+		}
+	}
+
+    bool IsValidRiverDestination (HexCell neighbor) 
+    {
+		return neighbor && (
+			elevation >= neighbor.elevation || waterLevel == neighbor.elevation
+		);
 	}
 
     public int Elevation
@@ -158,20 +183,7 @@ public class HexCell : MonoBehaviour
             uiRect.localPosition = uiPosition;
 
             //修改了高度之后阻止水往高流
-			if (
-				hasOutgoingRiver &&
-				elevation < GetNeighbor(outgoingRiver).elevation
-			) 
-            {
-				RemoveOutgoingRiver();
-			}
-			if (
-				hasIncomingRiver &&
-				elevation > GetNeighbor(incomingRiver).elevation
-			) 
-            {
-				RemoveIncomingRiver();
-			}
+            ValidateRivers();
 
             for (int i = 0; i < roads.Length; i++) {
 				if (roads[i] && GetElevationDifference((HexDirection)i) > 1) 
@@ -196,6 +208,7 @@ public class HexCell : MonoBehaviour
 				return;
 			}
 			waterLevel = value;
+            ValidateRivers();
 			Refresh();
 		}
 	}

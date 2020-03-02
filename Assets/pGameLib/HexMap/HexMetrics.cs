@@ -21,7 +21,7 @@ public static class HexMetrics
 	//内径根号3/2
 	public const float kInnerRadius = kOuterRadius * kOuterToInner;
 	//内圆半径
-	public const float kSolidFactor = 0.7f;
+	public const float kSolidFactor = 0.8f;
 	//接边半径
 	public const float kBlendFactor = 1f - kSolidFactor;
 	//高度差台阶常量
@@ -35,6 +35,10 @@ public static class HexMetrics
 	public const float kStreamBedElevationOffset = -1f;
 	//河流高度
 	public const float kWaterElevationOffset = -0.5f;
+	//为了防止谁边缘被裁看着不好看，把边缘拉长一点
+	public const float kWaterFactor = 0.6f;
+	//水域边缘
+	public const float kWaterBlendFactor = 1f - kWaterFactor;
 	//河流的UV步长
 	public const float kRiverSolidUVStep = kSolidFactor*0.25f;
 	//噪音影响系数
@@ -56,6 +60,22 @@ public static class HexMetrics
 		new Vector3(0f, 0f, kOuterRadius)	//用于循环生成三角面省事的冗余
 	};
 
+	public const int kHashGridSize = 256;
+
+	static float[] kHashGrid;
+
+	public static void InitializeHashGrid ( int seed ) 
+	{
+		kHashGrid = new float[kHashGridSize * kHashGridSize];
+		Random.State currentState = Random.state;
+		Random.InitState(seed);
+		for (int i = 0; i < kHashGrid.Length; i++) 
+		{
+			kHashGrid[i] = Random.value;
+		}
+		Random.state = currentState;
+	}
+
 	public static Vector3 GetFirstCorner(HexDirection direction)
 	{
 		return corners[(int)direction];
@@ -74,6 +94,22 @@ public static class HexMetrics
 	public static Vector3 GetSecondSolidCorner(HexDirection direction)
 	{
 		return corners[(int)direction + 1] * kSolidFactor;
+	}
+
+	public static Vector3 GetFirstWaterCorner (HexDirection direction) 
+	{
+		return corners[(int)direction] * kWaterFactor;
+	}
+
+	public static Vector3 GetSecondWaterCorner (HexDirection direction) 
+	{
+		return corners[(int)direction + 1] * kWaterFactor;
+	}
+
+	public static Vector3 GetWaterBridge (HexDirection direction) 
+	{
+		return (corners[(int)direction] + corners[(int)direction + 1]) *
+			kWaterBlendFactor;
 	}
 
 	public static Vector3 GetBridge(HexDirection direction)

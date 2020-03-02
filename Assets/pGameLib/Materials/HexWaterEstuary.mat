@@ -7,14 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HexRiverMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: a8f9666c62db9d04c9b54c34905c9852,
+  m_Name: HexWaterEstuary
+  m_Shader: {fileID: -6465566751694194690, guid: e77bc6c5dbf177a40846d9178ffe8169,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -32,7 +32,15 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _HexRiverFunc_7B4878FE_Texture2D3F143D94_3072103559:
+    - _HexFoamFunc_90B5A540_Texture2DE5710116_3834041241:
+        m_Texture: {fileID: 2800000, guid: 477426d3fce77e34ab9181f46b591de1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HexRiverFunc_EDD44349_Texture2D3F143D94_3072103559:
+        m_Texture: {fileID: 2800000, guid: 477426d3fce77e34ab9181f46b591de1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _HexWaveFunc_744BE741_Texture2D9A31214D_4292358422:
         m_Texture: {fileID: 2800000, guid: 477426d3fce77e34ab9181f46b591de1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -46,14 +54,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_AA8559AD_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 477426d3fce77e34ab9181f46b591de1, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_CED7E8AA_Texture_1:
-        m_Texture: {fileID: 2800000, guid: 477426d3fce77e34ab9181f46b591de1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -83,12 +83,12 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_F80935C8: {r: 0, g: 0.20392157, b: 0.7372549, a: 0.3529412}
+    - Color_3840BF99: {r: 0, g: 0.20392157, b: 0.7372549, a: 0.3529412}
     - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
---- !u!114 &2819188522725648355
+--- !u!114 &3949796964113512366
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
