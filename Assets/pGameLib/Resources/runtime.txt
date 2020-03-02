@@ -1,0 +1,29 @@
+__lua_runtime__ = {}
+
+local __unity_ui_event_binds = {}
+
+function __lua_runtime__.Cleanup()
+
+	for k,v in pairs(__unity_ui_event_binds) do
+        k:RemoveAllListeners(v)
+        k:Invoke()
+    end
+    __unity_ui_event_binds = {}
+
+    print("__lua_runtime__.Cleanup C# UIEvent")
+    local util = require 'xlua.util'
+    util.print_func_ref_by_csharp()
+end
+
+function __lua_runtime__.BindUnityUIEvent(event,func)
+    event:AddListener(func)
+    __unity_ui_event_binds[event] = func;
+end
+
+function __lua_runtime__.UnbindUnityUIEvent(event,func)
+    event:RemoveListener(func)
+    event:Invoke(func)
+    __unity_ui_event_binds[event] = nil
+end
+
+require(launch_file)
