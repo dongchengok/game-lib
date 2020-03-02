@@ -894,6 +894,7 @@ public class HexGridChunk : MonoBehaviour
 
 	public void ShowUI(bool visible)
 	{
+		//测试git push
 		gridCanvas.gameObject.SetActive(visible);
 	}
 }
